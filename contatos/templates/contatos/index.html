@@ -13,38 +13,18 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-        <td>
-            <a href="#"> Linda</a>
-        </td>
-        <td>Dotto</td>
-        <td>+55 055 9921-3055</td>
-        <td>Família</td>
-        </tr>
-        <tr>
-        <td>
-            <a href="#"> Érico</a>
-        </td>
-        <td>Weber</td>
-        <td>+55 055 9134-4031</td>
-        <td>Amigos</td>
-        </tr>
-        <tr>
-        <td>
-            <a href="#"> Maria</a>
-        </td>
-        <td>Branco</td>
-        <td>+55 24 98838-7795</td>
-        <td>Família</td>
-        </tr>
-        <tr>
-            <td>
-                <a href="#"> Darth</a>
-            </td>
-            <td>Vader</td>
-            <td>+104 12 123-838-7795</td>
-            <td>Vilão</td>
+        {% for contato in contatos %}
+            {% if contato.mostrar %}
+            <tr>
+                <td>
+                    <a href="{% url 'ver_contato' contato.id %}">{{ contato.nome }}</a>
+                </td>
+                <td>{{ contato.sobrenome }}</td>
+                <td>{{ contato.telefone }}</td>
+                <td>{{ contato.categoria }}</td>
             </tr>
+            {% endif%}
+        {% endfor %}
     </tbody>
     </table>
 
