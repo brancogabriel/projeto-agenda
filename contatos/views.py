@@ -1,11 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 from .models import Contato
 from django.core.paginator import Paginator
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
+from django.contrib import messages
 
-def index(request):
+def index(request):    
     contatos = Contato.objects.order_by('-id').filter(
         mostrar=True
     )
@@ -33,7 +34,8 @@ def busca(request):
     termo = request.GET.get('termo')
     
     if termo is None or not termo:
-        raise Http404
+        messages.add_message(request, messages.ERROR, 'O campo termo não pode ficar vazio.')
+        return redirect('index')
     
     campos = Concat('nome', Value(' '), 'sobrenome')
     
